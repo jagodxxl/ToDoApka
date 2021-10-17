@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTodosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTodosLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{todosController.selected.id}" title="#{bundle.EditTodosTitle_id}" autocomplete="on" readonly="true" style="background-color: gainsboro"/>
+                    <h:outputLabel value="#{bundle.EditTodosLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{todosController.selected.description}" title="#{bundle.EditTodosTitle_description}" required="true" requiredMessage="#{bundle.EditTodosRequiredMessage_description}"/>
+                    <h:outputLabel value="#{bundle.EditTodosLabel_targetDate}" for="targetDate" />
+                    <h:inputText id="targetDate" value="#{todosController.selected.targetDate}" title="#{bundle.EditTodosTitle_targetDate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTodosLabel_isDone}" for="isDone" />
+                    <h:inputText id="isDone" value="#{todosController.selected.isDone}" title="#{bundle.EditTodosTitle_isDone}" required="true" requiredMessage="#{bundle.EditTodosRequiredMessage_isDone}"/>
+                    <h:outputLabel value="#{bundle.EditTodosLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{todosController.selected.user}" title="#{bundle.EditTodosTitle_user}" required="true" requiredMessage="#{bundle.EditTodosRequiredMessage_user}">
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{todosController.update}" value="#{bundle.EditTodosSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTodosViewLink}"/>
+                <br />
+                <h:commandLink action="#{todosController.prepareList}" value="#{bundle.EditTodosShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTodosIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
